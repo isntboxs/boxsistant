@@ -8,10 +8,13 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import type { QueryClient } from '@tanstack/react-query'
 
-import TanStackQueryProvider from '@/integrations/tanstack-query/root-provider'
-import TanStackQueryDevtools from '@/integrations/tanstack-query/devtools'
+import TanStackQueryProvider from '#/integrations/tanstack-query/root-provider'
+import TanStackQueryDevtools from '#/integrations/tanstack-query/devtools'
 
-import appCss from '@/styles.css?url'
+import appCss from '#/styles.css?url'
+import { TooltipProvider } from '#/components/ui/tooltip'
+import { ThemeProvider } from '#/components/provider/theme-provider'
+import { Toaster } from '#/components/ui/sonner'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -49,7 +52,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <TanStackQueryProvider>
-          {children}
+          <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <TooltipProvider>{children}</TooltipProvider>
+            <Toaster position="top-right" />
+          </ThemeProvider>
           <TanStackDevtools
             config={{
               position: 'bottom-right',
