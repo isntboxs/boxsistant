@@ -1,9 +1,20 @@
 import { createEnv } from '@t3-oss/env-core'
 import { z } from 'zod'
 
+const isServer = typeof window === 'undefined'
+
 export const env = createEnv({
   server: {
-    SERVER_URL: z.string().url().optional(),
+    DATABASE_URL: z.url(),
+    SERVER_URL: z.url(),
+    BETTER_AUTH_SECRET: z
+      .string()
+      .min(32, 'BETTER_AUTH_SECRET must be at least 32 characters'),
+    BETTER_AUTH_URL: z.url(),
+    GITHUB_CLIENT_ID: z.string(),
+    GITHUB_CLIENT_SECRET: z.string(),
+    GOOGLE_CLIENT_ID: z.string(),
+    GOOGLE_CLIENT_SECRET: z.string(),
   },
 
   /**
@@ -13,14 +24,16 @@ export const env = createEnv({
   clientPrefix: 'VITE_',
 
   client: {
-    VITE_APP_TITLE: z.string().min(1).optional(),
+    VITE_APP_URL: z.url(),
   },
 
   /**
    * What object holds the environment variables at runtime. This is usually
    * `process.env` or `import.meta.env`.
    */
-  runtimeEnv: import.meta.env,
+  runtimeEnv: isServer ? process.env : import.meta.env,
+
+  isServer,
 
   /**
    * By default, this library will feed the environment variables directly to
