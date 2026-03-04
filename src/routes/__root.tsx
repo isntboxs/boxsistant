@@ -15,6 +15,7 @@ import appCss from '#/styles.css?url'
 import { TooltipProvider } from '#/components/ui/tooltip'
 import { ThemeProvider } from '#/components/provider/theme-provider'
 import { Toaster } from '#/components/ui/sonner'
+import { getAuthFn } from '#/functions/get-auth-fn'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -41,6 +42,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
     ],
   }),
+  beforeLoad: async () => {
+    const session = await getAuthFn()
+
+    return { auth: session }
+  },
+
   shellComponent: RootDocument,
 })
 
