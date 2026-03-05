@@ -26,8 +26,8 @@ export const userTable = pgTable('user', {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-  role: userRoleEnum('role'),
-  type: userTypeEnum('type'),
+  role: userRoleEnum('role').notNull(),
+  type: userTypeEnum('type').notNull(),
   banned: boolean('banned').default(false),
   banReason: text('ban_reason'),
   banExpires: timestamp('ban_expires'),

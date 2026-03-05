@@ -4,18 +4,16 @@ import { zodValidator } from '@tanstack/zod-adapter'
 import { validateCallbackUrl } from '#/utils/validate-callback-url'
 
 const loginRouterSchema = z.object({
-  redirect_to: z.string().default('/'),
+  redirect_to: z.string().default('/').transform(validateCallbackUrl),
 })
 
 export const Route = createFileRoute('/_auth')({
   component: RouteComponent,
   validateSearch: zodValidator(loginRouterSchema),
   beforeLoad: ({ context, search }) => {
-    const safeCallbackUrl = validateCallbackUrl(search.redirect_to)
-
     if (context.auth) {
       throw redirect({
-        to: safeCallbackUrl,
+        to: search.redirect_to,
         viewTransition: true,
       })
     }
