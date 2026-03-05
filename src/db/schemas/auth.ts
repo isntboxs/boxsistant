@@ -2,11 +2,16 @@ import { relations, sql } from 'drizzle-orm'
 import {
   boolean,
   index,
+  pgEnum,
   pgTable,
   text,
   timestamp,
   uuid,
 } from 'drizzle-orm/pg-core'
+import type { InferEnum } from 'drizzle-orm'
+
+export const userRoleEnum = pgEnum('user_role', ['user', 'admin'])
+export const userTypeEnum = pgEnum('user_type', ['guest', 'registered'])
 
 export const userTable = pgTable('user', {
   id: uuid('id')
@@ -21,7 +26,8 @@ export const userTable = pgTable('user', {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-  role: text('role'),
+  role: userRoleEnum('role').notNull(),
+  type: userTypeEnum('type').notNull(),
   banned: boolean('banned').default(false),
   banReason: text('ban_reason'),
   banExpires: timestamp('ban_expires'),
@@ -116,3 +122,6 @@ export const accountRelations = relations(accountTable, ({ one }) => ({
     references: [userTable.id],
   }),
 }))
+
+export type UserRoleEnum = InferEnum<typeof userRoleEnum>
+export type UserTypeEnum = InferEnum<typeof userTypeEnum>
