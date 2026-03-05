@@ -114,7 +114,7 @@ export const auth = betterAuth({
         input: false,
         validator: {
           input: z.enum(
-            Object.values(schema.userRoleEnum) as [
+            schema.userRoleEnum.enumValues as [
               schema.UserRoleEnum,
               ...schema.UserRoleEnum[],
             ],
@@ -128,7 +128,7 @@ export const auth = betterAuth({
         input: false,
         validator: {
           input: z.enum(
-            Object.values(schema.userTypeEnum) as [
+            schema.userTypeEnum.enumValues as [
               schema.UserTypeEnum,
               ...schema.UserTypeEnum[],
             ],
