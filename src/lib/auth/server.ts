@@ -107,6 +107,20 @@ export const auth = betterAuth({
   trustedOrigins: [env.BETTER_AUTH_URL],
   user: {
     additionalFields: {
+      role: {
+        type: ['user', 'admin'] as schema.UserRoleEnum[],
+        required: true,
+        defaultValue: 'user',
+        input: false,
+        validator: {
+          input: z.enum(
+            Object.values(schema.userRoleEnum) as [
+              schema.UserRoleEnum,
+              ...schema.UserRoleEnum[],
+            ],
+          ),
+        },
+      },
       type: {
         type: ['guest', 'registered'] as schema.UserTypeEnum[],
         required: true,
