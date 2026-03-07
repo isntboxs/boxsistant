@@ -5,6 +5,7 @@ import {
   IconDotsVertical,
   IconLogout,
 } from '@tabler/icons-react'
+import { toast } from 'sonner'
 import type { ComponentProps } from 'react'
 import type { auth } from '#/lib/auth/server'
 import {
@@ -35,7 +36,6 @@ import {
 } from '#/components/ui/dropdown-menu'
 import { AvatarUser } from '#/components/avatar-user'
 import { signOut } from '#/lib/auth/client'
-import { toast } from 'sonner'
 
 type AppSidebarFooterProps = ComponentProps<typeof SidebarFooter>
 
