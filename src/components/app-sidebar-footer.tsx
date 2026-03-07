@@ -35,6 +35,7 @@ import {
 } from '#/components/ui/dropdown-menu'
 import { AvatarUser } from '#/components/avatar-user'
 import { signOut } from '#/lib/auth/client'
+import { toast } from 'sonner'
 
 type AppSidebarFooterProps = ComponentProps<typeof SidebarFooter>
 
@@ -51,6 +52,11 @@ export const AppSidebarFooter = ({
       fetchOptions: {
         onSuccess: () => {
           void router.invalidate()
+        },
+        onError: (ctx) => {
+          toast.error('Failed to sign out', {
+            description: ctx.error.message,
+          })
         },
       },
     })
@@ -105,7 +111,7 @@ const UserButton = ({ user, onSignOut, isMobile }: UserButtonProps) => {
           </DrawerHeader>
           <DrawerFooter>
             <DrawerClose asChild>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full" disabled>
                 <IconCreditCard />
                 Billing
               </Button>
@@ -158,7 +164,7 @@ const UserButton = ({ user, onSignOut, isMobile }: UserButtonProps) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem disabled>
             <IconCreditCard />
             Billing
           </DropdownMenuItem>

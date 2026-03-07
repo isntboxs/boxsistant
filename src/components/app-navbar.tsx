@@ -24,6 +24,7 @@ export const AppLeftNavbar = () => {
 
   return (
     <nav
+      aria-label="Main navigation"
       className={cn(
         'absolute top-2 left-2 z-50 p-0.5 transition-all duration-300 ease-in-out',
         isCollapsedOrMobile &&
@@ -41,7 +42,14 @@ export const AppLeftNavbar = () => {
       </Button>
 
       <Activity mode={isCollapsedOrMobile ? 'visible' : 'hidden'}>
-        <Button type="button" variant="ghost" size="icon" aria-label="Search">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          aria-label="Search"
+          disabled
+          aria-disabled="true"
+        >
           <SearchIcon />
           <span className="sr-only">Search Threads</span>
         </Button>
@@ -66,6 +74,7 @@ export const AppLeftNavbar = () => {
 export const AppRightNavbar = () => {
   return (
     <nav
+      aria-label="Settings navigation"
       className={cn(
         'absolute top-2 right-2 z-50 p-0.5 transition-all duration-300 ease-in-out',
         'bg-sidebar/65 supports-backdrop-filter:bg-sidebar/65 backdrop-blur-sm',

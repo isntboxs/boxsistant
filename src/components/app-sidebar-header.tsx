@@ -26,12 +26,12 @@ export const AppSidebarHeader = ({
         <SidebarMenuItem>
           <SidebarMenuButton
             asChild
-            className="mx-auto w-fit cursor-pointer data-[slot=sidebar-menu-button]:p-1.5!"
+            className="mx-auto w-fit data-[slot=sidebar-menu-button]:p-1.5!"
           >
-            <div className="flex items-center gap-2">
+            <Link to="/" viewTransition className="flex items-center gap-2">
               <BoxsIcon />
-              <span className="font-semibold">Boxsistant</span>
-            </div>
+              <span className="text-sm font-semibold">Boxsistant</span>
+            </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
